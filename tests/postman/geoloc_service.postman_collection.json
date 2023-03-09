@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "8436c3f0-d317-4064-8352-bbf536abdb81",
+		"name": "geoloc_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Resolve IP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status is OK\", function() {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"pm.test(\"Response body is valid\", function() {",
+							"    pm.expect(Object.keys(pm.response.json()).length).to.equal(2);",
+							"    pm.expect(pm.response.json().country).to.equal(\"Nicaragua\");",
+							"    pm.expect(pm.response.json().city).to.equal(\"New Neva\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceURL}}/resolve_ip?ip=160.103.7.140",
+					"host": [
+						"{{serviceURL}}"
+					],
+					"path": [
+						"resolve_ip"
+					],
+					"query": [
+						{
+							"key": "ip",
+							"value": "160.103.7.140"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resolve IP For Unknown Entry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is No Content\", function() {",
+							"    pm.response.to.have.status(204)",
+							"})",
+							"",
+							"pm.test(\"Response body is empty\", function() {",
+							"    pm.response.to.have.body(\"\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceURL}}/resolve_ip?ip=160.103.7.141",
+					"host": [
+						"{{serviceURL}}"
+					],
+					"path": [
+						"resolve_ip"
+					],
+					"query": [
+						{
+							"key": "ip",
+							"value": "160.103.7.141"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resolve IP with invalid IP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status is Bad Request\", function() {",
+							"    pm.response.to.have.status(400)",
+							"})",
+							"",
+							"pm.test(\"Response body with message\", function() {",
+							"    pm.expect(Object.keys(pm.response.json()).length).to.equal(1);",
+							"    pm.expect(pm.response.json().message).to.equal(\"invalid ip\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceURL}}/resolve_ip?ip=invalid_ip",
+					"host": [
+						"{{serviceURL}}"
+					],
+					"path": [
+						"resolve_ip"
+					],
+					"query": [
+						{
+							"key": "ip",
+							"value": "invalid_ip"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resolve IP without args",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status is Bad Request\", function() {",
+							"    pm.response.to.have.status(400)",
+							"})",
+							"",
+							"pm.test(\"Response body with message\", function() {",
+							"    pm.expect(Object.keys(pm.response.json()).length).to.equal(1);",
+							"    pm.expect(pm.response.json().message).to.equal(\"missing ip\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceURL}}/resolve_ip",
+					"host": [
+						"{{serviceURL}}"
+					],
+					"path": [
+						"resolve_ip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resolve IP For Unknown Entry (IPv6)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is No Content\", function() {",
+							"    pm.response.to.have.status(204)",
+							"})",
+							"",
+							"pm.test(\"Response body is empty\", function() {",
+							"    pm.response.to.have.body(\"\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceURL}}/resolve_ip?ip=2001:0db8:85a3:0000:0000:8a2e:0370:7334",
+					"host": [
+						"{{serviceURL}}"
+					],
+					"path": [
+						"resolve_ip"
+					],
+					"query": [
+						{
+							"key": "ip",
+							"value": "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resolve IP (IPv6)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status is OK\", function() {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"pm.test(\"Response body is valid\", function() {",
+							"    pm.expect(Object.keys(pm.response.json()).length).to.equal(2);",
+							"    pm.expect(pm.response.json().country).to.equal(\"Armenia\");",
+							"    pm.expect(pm.response.json().city).to.equal(\"Yerevan\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{serviceURL}}/resolve_ip?ip=2001:0db8:85a3:0000:0000:8a2e:0370:7335",
+					"host": [
+						"{{serviceURL}}"
+					],
+					"path": [
+						"resolve_ip"
+					],
+					"query": [
+						{
+							"key": "ip",
+							"value": "2001:0db8:85a3:0000:0000:8a2e:0370:7335"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

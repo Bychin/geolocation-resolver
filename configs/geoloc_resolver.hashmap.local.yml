@@ -1,0 +1,10 @@
+path_to_csv: "pkg/importer/testdata/data_dump_valid.csv"
+storage_option: "hashmap"
+http:
+  addr: "localhost:8080"
+resolver:
+  write_timeout: "1s"
+  read_timeout: "1s"
+  importer:
+    separator: ","
+    verbose: true
